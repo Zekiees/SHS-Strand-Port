@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SHS Strand Portal – Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles-app.css" />
+  <link rel="icon" href="../img/Limay_Senior_High_School.png" type="image/png">
+
+  <!-- SEO structured data for the school -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Limay Senior High School",
+    "url": "https://yourwebsite.com",
+    "logo": "https://yourwebsite.com/../img/Limay_Senior_High_School.png"
+  }
+  </script>
+</head>
+<body>
+
+  <!-- Decorative background grid overlay -->
+  <div class="bg-grid"></div>
+
+  <!-- Main app shell — only accessible after login -->
+  <div id="systemApp" class="app-shell">
+
+    <!-- Sidebar — navigation and user info -->
+    <nav class="sidebar" id="sidebar">
+      <div class="sidebar__brand">
+        <!-- Logo with fallback emblem if no image is set -->
+        <div class="sidebar__logo-wrap">
+          <img
+            src=""
+            alt="School Logo"
+            class="sidebar__logo"
+            id="sidebarLogo"
+            onerror="this.style.display='none'; document.getElementById('sidebarEmblem').style.display='flex';"
+          />
+          <div class="sidebar__emblem" id="sidebarEmblem" style="display:flex;">
+            <span id="userAvatarInitial">S</span>
+          </div>
+        </div>
+        <div class="sidebar__brand-text">
+          <span class="sidebar__brand-name">SHS Portal</span>
+          <span class="sidebar__brand-sub">DepEd SY 2025–2026</span>
+        </div>
+      </div>
+
+      <div class="sidebar__section-label">Navigation</div>
+
+      <!-- Nav items — each calls goTo() to switch the active section -->
+      <div class="nav-item active" id="nav-dashboard" onclick="goTo('dashboard')">
+        <span class="nav-item__icon">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        </span>
+        Dashboard
+      </div>
+      <div class="nav-item" id="nav-quiz" onclick="goTo('quiz')">
+        <span class="nav-item__icon">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+        </span>
+        Interest Quiz
+      </div>
+      <div class="nav-item" id="nav-grades" onclick="goTo('grades')">
+        <span class="nav-item__icon">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+        </span>
+        Grade Input
+      </div>
+      <div class="nav-item" id="nav-results" onclick="goTo('results')">
+        <span class="nav-item__icon">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+        </span>
+        My Results
+      </div>
+      <div class="nav-item" id="nav-strands" onclick="goTo('strands')">
+        <span class="nav-item__icon">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+        </span>
+        Strand Info
+      </div>
+
+      <!-- Sidebar footer — shows logged-in user info and logout button -->
+      <div class="sidebar__footer">
+        <div class="user-chip">
+          <div class="user-chip__avatar" id="sidebarAvatar">S</div>
+          <div class="user-chip__info">
+            <span class="user-chip__name" id="sidebarUserName">Student</span>
+            <span class="user-chip__role">Grade 10</span>
+          </div>
+          <button class="user-chip__logout" onclick="logout()" title="Logout">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main content area — topbar + all page sections -->
+    <div class="main-area">
+
+      <!-- Topbar — page title, school logo, and theme toggle -->
+      <header class="topbar">
+        <div class="topbar__left">
+          <!-- Hamburger button — only visible on mobile to open the sidebar -->
+          <button class="topbar__menu-btn" id="menuBtn" onclick="toggleSidebar()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          </button>
+          <h2 class="topbar__title" id="topbarTitle">Dashboard</h2>
+          <span class="topbar__badge">SY 2025–2026</span>
+        </div>
+
+        <div class="topbar__right">
+          <!-- Topbar school logo — hidden if src is empty -->
+          <div class="topbar__school-logo-wrap">
+            <img src="" alt="School Logo" class="topbar__school-logo" id="topbarLogo" onerror="this.style.display='none'" />
+          </div>
+
+          <!-- Theme toggle — switches dark/light mode -->
+          <button class="theme-btn theme-btn--topbar" id="topbarThemeBtn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle light/dark mode">
+            <div class="theme-btn__track">
+              <svg class="theme-icon theme-icon--sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="5"/>
+                <line x1="12" y1="1"  x2="12" y2="3"/>
+                <line x1="12" y1="21" x2="12" y2="23"/>
+                <line x1="4.22" y1="4.22"  x2="5.64" y2="5.64"/>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                <line x1="1" y1="12" x2="3" y2="12"/>
+                <line x1="21" y1="12" x2="23" y2="12"/>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                <line x1="18.36" y1="5.64"  x2="19.78" y2="4.22"/>
+              </svg>
+              <svg class="theme-icon theme-icon--moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+              </svg>
+            </div>
+            <span class="theme-btn__label" id="topbarThemeLabel">Light</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Scrollable content area — holds all page sections -->
+      <div class="content-area">
+
+        <!-- Dashboard section — welcome banner, progress ring, and stat cards -->
+        <section class="section active" id="sec-dashboard">
+          <div class="welcome-banner">
+            <div class="welcome-banner__text">
+              <h3 class="welcome-banner__title">Good day, <span id="welcomeName">Student</span>! 👋</h3>
+              <p class="welcome-banner__desc">Complete your interest quiz and enter your grades to get your personalized SHS strand recommendation.</p>
+              <button class="btn btn--primary btn--sm" onclick="goTo('quiz')" style="margin-top:1.25rem;">▶ Begin Assessment</button>
+            </div>
+            <!-- SVG circular progress ring — animated via JS stroke-dashoffset -->
+            <div class="progress-ring-wrap">
+              <svg class="progress-ring" viewBox="0 0 80 80">
+                <circle class="progress-ring__track" cx="40" cy="40" r="33"/>
+                <circle class="progress-ring__bar" cx="40" cy="40" r="33" id="progressBar"/>
+              </svg>
+              <div class="progress-ring__label">
+                <span id="progressPct">0%</span>
+                <span class="progress-ring__sub">done</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Stat cards — updated by updateDashboard() after quiz and grades -->
+          <div class="stat-grid">
+            <div class="stat-card">
+              <div class="stat-card__icon">📝</div>
+              <div class="stat-card__value" id="cardQuiz">—</div>
+              <div class="stat-card__label">Assessment</div>
+              <div class="stat-card__hint">Take the quiz first</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card__icon">📚</div>
+              <div class="stat-card__value" id="cardGrades">—</div>
+              <div class="stat-card__label">Grades</div>
+              <div class="stat-card__hint">Then enter grades</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card__icon">🏆</div>
+              <div class="stat-card__value" id="cardTopStrand" style="font-size:1.1rem;">—</div>
+              <div class="stat-card__label">Top Strand</div>
+              <div class="stat-card__hint">Your best match</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Quiz section — questions rendered dynamically by renderQuestions() -->
+        <section class="section" id="sec-quiz">
+          <div class="section-header">
+            <h3 class="section-title">Interest Assessment Quiz</h3>
+            <p class="section-desc">Select how much each statement applies to you. Answer honestly for the best recommendation.</p>
+          </div>
+          <!-- Step progress bar — shows current step in the assessment flow -->
+          <div class="step-bar">
+            <div class="step-bar__item step-bar__item--active"><span>1</span> Assessment</div>
+            <div class="step-bar__line"></div>
+            <div class="step-bar__item" id="stepGrades"><span>2</span> Grades</div>
+            <div class="step-bar__line"></div>
+            <div class="step-bar__item" id="stepResults"><span>3</span> Results</div>
+          </div>
+          <!-- Quiz cards injected here by renderQuestions() -->
+          <div id="questionsContainer"></div>
+          <button class="btn btn--primary" onclick="submitQuiz()" style="margin-top:1.5rem;">Continue to Grades →</button>
+        </section>
+
+        <!-- Grades section — student inputs their Grade 10 subject grades -->
+        <section class="section" id="sec-grades">
+          <div class="section-header">
+            <h3 class="section-title">Enter Your Final Grades</h3>
+            <p class="section-desc">Input your Grade 10 final grades (0–100) in core subjects.</p>
+          </div>
+          <div class="step-bar">
+            <div class="step-bar__item step-bar__item--done"><span>✓</span> Assessment</div>
+            <div class="step-bar__line step-bar__line--done"></div>
+            <div class="step-bar__item step-bar__item--active"><span>2</span> Grades</div>
+            <div class="step-bar__line"></div>
+            <div class="step-bar__item"><span>3</span> Results</div>
+          </div>
+          <div class="grades-grid">
+            <div class="grade-field">
+              <label class="grade-field__label">Mathematics</label>
+              <input class="grade-field__input" type="number" id="mathGrade" min="0" max="100" placeholder="e.g. 90" />
+            </div>
+            <div class="grade-field">
+              <label class="grade-field__label">Science</label>
+              <input class="grade-field__input" type="number" id="sciGrade" min="0" max="100" placeholder="e.g. 88" />
+            </div>
+            <div class="grade-field">
+              <label class="grade-field__label">English</label>
+              <input class="grade-field__input" type="number" id="engGrade" min="0" max="100" placeholder="e.g. 85" />
+            </div>
+            <div class="grade-field">
+              <label class="grade-field__label">Filipino</label>
+              <input class="grade-field__input" type="number" id="filGrade" min="0" max="100" placeholder="e.g. 87" />
+            </div>
+            <div class="grade-field">
+              <label class="grade-field__label">Araling Panlipunan</label>
+              <input class="grade-field__input" type="number" id="apGrade" min="0" max="100" placeholder="e.g. 83" />
+            </div>
+            <div class="grade-field">
+              <label class="grade-field__label">TLE / EPP</label>
+              <input class="grade-field__input" type="number" id="tleGrade" min="0" max="100" placeholder="e.g. 92" />
+            </div>
+          </div>
+          <button class="btn btn--primary" onclick="submitGrades()">Calculate My Results →</button>
+        </section>
+
+        <!-- Results section — top 3 strand recommendations shown as a podium -->
+        <section class="section" id="sec-results">
+          <div class="section-header">
+            <h3 class="section-title">Your Strand Recommendations</h3>
+            <p class="section-desc">Based on your interests and academic performance — your personalized top 3 SHS strands.</p>
+          </div>
+          <div class="step-bar">
+            <div class="step-bar__item step-bar__item--done"><span>✓</span> Assessment</div>
+            <div class="step-bar__line step-bar__line--done"></div>
+            <div class="step-bar__item step-bar__item--done"><span>✓</span> Grades</div>
+            <div class="step-bar__line step-bar__line--done"></div>
+            <div class="step-bar__item step-bar__item--active"><span>3</span> Results</div>
+          </div>
+          <!-- Podium cards injected here by renderResults() -->
+          <div class="podium" id="resultPodium"></div>
+          <button class="btn btn--primary" onclick="exportPDF()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:6px"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Export as PDF
+          </button>
+        </section>
+
+        <!-- Strand info section — cards for each strand rendered by renderStrandInfo() -->
+        <section class="section" id="sec-strands">
+          <div class="section-header">
+            <h3 class="section-title">Strand Information Hub</h3>
+            <p class="section-desc">Explore each SHS strand — career paths, descriptions, and college programs.</p>
+          </div>
+          <div class="strand-info-grid" id="strandInfoGrid"></div>
+        </section>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast notification — JS shows/hides this for feedback messages -->
+  <div class="toast" id="toast"></div>
+
+  <script src="script-app.js"></script>
+</body>
+</html>

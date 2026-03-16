@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Limay SHS Strand Portal – Sign In</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles-auth.css" />
+  <link rel="icon" href="../img/Limay_Senior_High_School.png" type="image/png">
+
+  <!-- SEO structured data for the school -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Education",
+    "name": "Limay Senior High School",
+    "url": "https://yourwebsite.com",
+    "logo": "https://yourwebsite.com/../img/Limay_Senior_High_School.png"
+  }
+  </script>
+</head>
+<body>
+
+  <!-- Decorative background grid overlay -->
+  <div class="bg-grid"></div>
+
+  <div id="authPage">
+    <div class="auth-shell">
+
+      <!-- Left hero panel — school branding and strand overview -->
+      <div class="auth-hero">
+        <div class="hero-deco hero-deco--1"></div>
+        <div class="hero-deco hero-deco--2"></div>
+        <div class="hero-deco hero-deco--3"></div>
+
+        <div class="hero-top">
+          <!-- School logo — shows fallback placeholder if image fails to load -->
+          <div class="school-logo-wrap">
+            <img src="../img/Limay_Senior_High_School.png" alt="Limay SHS Logo" class="school-logo" id="authLogo"
+                 onerror="this.parentElement.classList.add('logo-fallback')">
+            <div class="logo-placeholder" aria-hidden="true">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+              </svg>
+              <span>Limay SHS</span>
+            </div>
+          </div>
+
+          <span class="brand-pill">
+            <span class="brand-pill__dot"></span>
+            DepEd SHS Strand Portal
+          </span>
+          <h1 class="hero-title">Find Your<br><em>Strand</em></h1>
+          <p class="hero-desc">
+            Intelligent decision support system for Grade 10 students<br>
+            Choose the best Senior High School strand based on interests & grades.
+          </p>
+        </div>
+
+        <!-- Color palette swatches and available strand tags -->
+        <div class="hero-bottom">
+          <p class="palette-label">Sapphire Veil Theme</p>
+          <div class="palette-swatches">
+            <span class="swatch" style="background:#E7F0FA"></span>
+            <span class="swatch" style="background:#7BA4D0"></span>
+            <span class="swatch" style="background:#2E5E99"></span>
+            <span class="swatch" style="background:#0D2440"></span>
+          </div>
+          <div class="strand-pills">
+            <span class="s-pill">STEM</span>
+            <span class="s-pill">ABM</span>
+            <span class="s-pill">GAS</span>
+            <span class="s-pill">HUMSS</span>
+            <span class="s-pill">TVL</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right panel — auth forms and theme toggle -->
+      <div class="auth-panel">
+
+        <!-- Theme toggle — switches dark/light mode and saves preference -->
+        <div class="auth-theme-toggle">
+          <button class="theme-btn" id="authThemeBtn" onclick="toggleTheme()" aria-label="Toggle theme" title="Toggle light/dark mode">
+            <svg class="theme-icon theme-icon--sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="5"/>
+              <line x1="12" y1="1"  x2="12" y2="3"/>
+              <line x1="12" y1="21" x2="12" y2="23"/>
+              <line x1="4.22" y1="4.22"  x2="5.64" y2="5.64"/>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+              <line x1="1" y1="12" x2="3" y2="12"/>
+              <line x1="21" y1="12" x2="23" y2="12"/>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+              <line x1="18.36" y1="5.64"  x2="19.78" y2="4.22"/>
+            </svg>
+            <svg class="theme-icon theme-icon--moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+            </svg>
+            <span class="theme-btn__label" id="authThemeLabel">Light Mode</span>
+          </button>
+        </div>
+
+        <!-- Register form — visible by default on page load -->
+        <div id="registerForm" class="auth-form">
+          <div class="auth-form__header">
+            <h2 class="auth-form__title">Create Account</h2>
+            <p class="auth-form__sub">Register with your student credentials</p>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label class="field__label">LRN</label>
+              <input class="field__input" type="text" id="regLRN" placeholder="Learner Reference Number" />
+            </div>
+          </div>
+          <div class="field-row field-row--2col">
+            <div class="field">
+              <label class="field__label">Surname</label>
+              <input class="field__input" type="text" id="regSurname" placeholder="De la Cruz" />
+            </div>
+            <div class="field">
+              <label class="field__label">First Name</label>
+              <input class="field__input" type="text" id="regFirstname" placeholder="Juan" />
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label class="field__label">Password</label>
+              <input class="field__input" type="password" id="regPassword" placeholder="Create a password" />
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label class="field__label">Confirm Password</label>
+              <input class="field__input" type="password" id="regConfirmPassword" placeholder="Repeat password" />
+            </div>
+          </div>
+
+          <button class="btn btn--primary" onclick="register()">Create Account</button>
+          <p class="auth-switch">Already have an account? <a onclick="showLogin()">Sign in</a></p>
+        </div>
+
+        <!-- Login form — hidden by default, toggled via showLogin() -->
+        <div id="loginForm" class="auth-form" style="display:none;">
+          <div class="auth-form__header">
+            <h2 class="auth-form__title">Welcome Back</h2>
+            <p class="auth-form__sub">Sign in to continue your assessment</p>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label class="field__label">LRN</label>
+              <input class="field__input" type="text" id="loginLRN" placeholder="Your Learner Reference Number" />
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label class="field__label">Password</label>
+              <input class="field__input" type="password" id="loginPassword" placeholder="Your password" />
+            </div>
+          </div>
+
+          <button class="btn btn--primary" onclick="login()">Sign In</button>
+
+          <div class="divider"><span>or</span></div>
+
+          <!-- Microsoft SSO button — disabled, reserved for future DepEd integration -->
+          <button class="btn btn--ms" disabled title="Coming soon">
+            <svg width="16" height="16" viewBox="0 0 21 21"><rect x="1" y="1" width="9" height="9" fill="#f25022"/><rect x="11" y="1" width="9" height="9" fill="#7fba00"/><rect x="1" y="11" width="9" height="9" fill="#00a4ef"/><rect x="11" y="11" width="9" height="9" fill="#ffb900"/></svg>
+            Sign in with DepEd Microsoft Account
+          </button>
+
+          <p class="auth-switch">New here? <a href="#" onclick="showRegister(); return false;">Create account</a></p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast notification — JS shows/hides this for feedback messages -->
+  <div class="toast" id="toast"></div>
+
+  <script src="script-auth.js"></script>
+</body>
+</html>
