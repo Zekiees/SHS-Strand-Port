@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SHS Strand Recommendation – {{STUDENT_NAME}}</title>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Page setup ── */
+    @page {
+      size: A4;
+      margin: 0;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Source Sans 3', 'Georgia', serif;
+      background: #fff;
+      color: #1a2540;
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 48px 56px 56px;
+      min-height: 100vh;
+    }
+
+    /* ── Letterhead header ── */
+    .letterhead {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding-bottom: 18px;
+      border-bottom: 3px solid #1a3560;
+      margin-bottom: 22px;
+    }
+
+    .school-logo {
+      width: 88px;
+      height: 88px;
+      object-fit: contain;
+      margin-bottom: 10px;
+      background: #e8eef7;
+      border-radius: 50%;
+      padding: 4px;
+    }
+
+    .school-name {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: #1a3560;
+      letter-spacing: 0.03em;
+      line-height: 1.2;
+    }
+
+    .school-address {
+      font-size: 0.78rem;
+      color: #5a6a80;
+      margin-top: 3px;
+      letter-spacing: 0.02em;
+    }
+
+    .school-deped {
+      font-size: 0.72rem;
+      color: #7a8a9a;
+      margin-top: 2px;
+      font-style: italic;
+    }
+
+    /* ── Document title ── */
+    .doc-title-wrap {
+      text-align: center;
+      margin-bottom: 22px;
+    }
+
+    .doc-label {
+      display: inline-block;
+      background: #1a3560;
+      color: #fff;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 4px 16px;
+      border-radius: 100px;
+      margin-bottom: 8px;
+    }
+
+    .doc-title {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 1.55rem;
+      font-weight: 600;
+      color: #1a3560;
+      line-height: 1.25;
+    }
+
+    .doc-sy {
+      font-size: 0.8rem;
+      color: #7a8a9a;
+      margin-top: 3px;
+    }
+
+    /* ── Student info card ── */
+    .student-card {
+      background: #f0f5fc;
+      border: 1px solid #c8d8ee;
+      border-radius: 8px;
+      padding: 14px 20px;
+      margin-bottom: 24px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+    }
+
+    .student-card__field { display: flex; flex-direction: column; gap: 2px; }
+
+    .student-card__label {
+      font-size: 0.62rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #5a7090;
+    }
+
+    .student-card__value {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #1a2540;
+    }
+
+    /* ── Section heading ── */
+    .section-heading {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #1a3560;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-heading::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: #c8d8ee;
+    }
+
+    /* ── Recommendation cards ── */
+    .rec-card {
+      border: 1px solid #c8d8ee;
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .rec-card--rank1 { border-left: 5px solid #1a3560; background: #f0f5fc; }
+    .rec-card--rank2 { border-left: 5px solid #4a7ab5; background: #f7f9fd; }
+    .rec-card--rank3 { border-left: 5px solid #7ba4d0; background: #fbfcfe; }
+
+    .rec-rank {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 1rem;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .rec-rank--1 { background: #1a3560; color: #fff; }
+    .rec-rank--2 { background: #4a7ab5; color: #fff; }
+    .rec-rank--3 { background: #7ba4d0; color: #fff; }
+
+    .rec-body { flex: 1; }
+
+    .rec-label {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #7a90aa;
+      margin-bottom: 3px;
+    }
+
+    .rec-strand {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #1a2540;
+      margin-bottom: 4px;
+    }
+
+    .rec-desc {
+      font-size: 0.82rem;
+      color: #4a5a6a;
+      line-height: 1.65;
+    }
+
+    /* ── Note section ── */
+    .note-box {
+      background: #fffbea;
+      border: 1px solid #f0d060;
+      border-radius: 6px;
+      padding: 12px 16px;
+      margin-top: 22px;
+      font-size: 0.78rem;
+      color: #6a5a10;
+      line-height: 1.6;
+    }
+
+    .note-box strong { color: #4a3a00; }
+
+    /* ── Signature block ── */
+    .signature-block {
+      margin-top: 36px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+    }
+
+    .signature-line {
+      border-top: 1.5px solid #1a3560;
+      padding-top: 6px;
+    }
+
+    .signature-name {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #1a2540;
+    }
+
+    .signature-role {
+      font-size: 0.72rem;
+      color: #7a8a9a;
+      margin-top: 1px;
+    }
+
+    /* ── Footer ── */
+    .doc-footer {
+      margin-top: 32px;
+      padding-top: 12px;
+      border-top: 1px solid #dde8f5;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.65rem;
+      color: #a0aabb;
+    }
+
+    /* ── Print overrides ── */
+    @media print {
+      body { padding: 32px 40px; }
+      .rec-card { break-inside: avoid; }
+    }
+  </style>
+
+  
+</head>
+<body>
+
+  <!-- School letterhead -->
+  <div class="letterhead">
+    <img
+      src="../img/Limay_Senior_High_School.png"
+      alt="Limay SHS Logo"
+      class="school-logo"
+      onerror="this.style.display='none'"
+    />
+    <div class="school-name">Limay Senior High School</div>
+    <div class="school-address">Limay, Bataan, Philippines</div>
+    <div class="school-deped">Department of Education – Schools Division of Bataan</div>
+  </div>
+
+  <!-- Document title block -->
+  <div class="doc-title-wrap">
+    <div class="doc-label">Official Document</div>
+    <div class="doc-title">SHS Strand Recommendation Report</div>
+    <div class="doc-sy">School Year 2025–2026</div>
+  </div>
+
+  <!-- Student info — tokens replaced by exportPDF() in script-app.js -->
+  <div class="student-card">
+    <div class="student-card__field">
+      <span class="student-card__label">Student Name</span>
+      <span class="student-card__value" id="pdf-name">{{STUDENT_NAME}}</span>
+    </div>
+    <div class="student-card__field">
+      <span class="student-card__label">Learner Reference No.</span>
+      <span class="student-card__value" id="pdf-lrn">{{STUDENT_LRN}}</span>
+    </div>
+    <div class="student-card__field">
+      <span class="student-card__label">Date Generated</span>
+      <span class="student-card__value" id="pdf-date">{{DATE}}</span>
+    </div>
+  </div>
+
+  <!-- Recommendations — injected by exportPDF() -->
+  <div class="section-heading">Top 3 Recommended Strands</div>
+  <div id="pdf-recommendations">{{RECOMMENDATIONS}}</div>
+
+  <!-- Advisory note -->
+  <div class="note-box">
+    <strong>Note:</strong> This recommendation is based on the student's interest assessment quiz results and Grade 10 academic performance.
+    It is intended as a guide only. Final strand selection remains the decision of the student, parent/guardian, and school guidance counselor.
+  </div>
+
+  <!-- Signature block -->
+  <div class="signature-block">
+    <div>
+      <div class="signature-line">
+        <div class="signature-name">Guidance Counselor</div>
+        <div class="signature-role">Limay Senior High School</div>
+      </div>
+    </div>
+    <div>
+      <div class="signature-line">
+        <div class="signature-name">School Principal</div>
+        <div class="signature-role">Limay Senior High School</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Document footer -->
+  <div class="doc-footer">
+    <span>Generated by the SHS Strand Decision Support System &bull; Limay Senior High School &bull; DepEd</span>
+    <span>Confidential – For school use only</span>
+  </div>
+
+</body>
+</html>
